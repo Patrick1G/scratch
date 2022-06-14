@@ -1,0 +1,605 @@
+{
+  "process_graph": {
+    "10": {
+      "process_id": "apply",
+      "arguments": {
+        "process": {
+          "process_graph": {
+            "1": {
+              "result": true,
+              "process_id": "gt",
+              "arguments": {
+                "x": {
+                  "from_parameter": "x"
+                },
+                "y": 0
+              }
+            }
+          }
+        },
+        "data": {
+          "from_node": "19"
+        },
+        "context": ""
+      }
+    },
+    "11": {
+      "process_id": "load_collection",
+      "arguments": {
+        "temporal_extent": [
+          "2019-04-01T00:00:00Z",
+          "2019-04-30T23:59:59Z"
+        ],
+        "spatial_extent": {
+          "east": 11.535799026489256,
+          "south": 46.29756750209694,
+          "north": 46.394735677983675,
+          "west": 11.3679141998291
+        },
+        "id": "S2_L2A_T32TPS",
+        "bands": [
+          "B04_10m",
+          "B02_10m",
+          "B08_10m",
+          "B03_10m",
+          "B8A_20m"
+        ],
+        "properties": {}
+      }
+    },
+    "13": {
+      "process_id": "mask",
+      "arguments": {
+        "data": {
+          "from_node": "11"
+        },
+        "replacement": 0,
+        "mask": {
+          "from_node": "10"
+        }
+      }
+    },
+    "19": {
+      "process_id": "resample_cube_temporal",
+      "arguments": {
+        "data": {
+          "from_node": "loadcollection1"
+        },
+        "method": "nearest",
+        "target": {
+          "from_node": "11"
+        }
+      }
+    },
+    "22": {
+      "process_id": "apply",
+      "arguments": {
+        "process": {
+          "process_graph": {
+            "2": {
+              "process_id": "lt",
+              "arguments": {
+                "x": {
+                  "from_parameter": "x"
+                },
+                "y": 5000
+              }
+            },
+            "3": {
+              "process_id": "multiply",
+              "arguments": {
+                "x": {
+                  "from_node": "2"
+                },
+                "y": {
+                  "from_parameter": "x"
+                }
+              },
+              "result": true
+            }
+          }
+        },
+        "data": {
+          "from_node": "13"
+        },
+        "context": ""
+      }
+    },
+    "23": {
+      "process_id": "predict_curve",
+      "arguments": {
+        "data": {
+          "from_node": "22"
+        },
+        "function": {
+          "process_graph": {
+            "5f8mex5rd": {
+              "process_id": "array_element",
+              "arguments": {
+                "data": {
+                  "from_parameter": "parameters"
+                },
+                "index": 0
+              }
+            },
+            "hq96x3vlt": {
+              "process_id": "pi",
+              "arguments": {}
+            },
+            "orf1u6h9g": {
+              "process_id": "pi",
+              "arguments": {}
+            },
+            "rkpyii498": {
+              "process_id": "array_element",
+              "arguments": {
+                "data": {
+                  "from_parameter": "parameters"
+                },
+                "index": 1
+              }
+            },
+            "xb8ao32v8": {
+              "process_id": "array_element",
+              "arguments": {
+                "data": {
+                  "from_parameter": "parameters"
+                },
+                "index": 2
+              }
+            },
+            "lp1czbhuh": {
+              "process_id": "multiply",
+              "arguments": {
+                "x": 2,
+                "y": {
+                  "from_node": "hq96x3vlt"
+                }
+              }
+            },
+            "ex0oqkl8c": {
+              "process_id": "multiply",
+              "arguments": {
+                "x": 2,
+                "y": {
+                  "from_node": "orf1u6h9g"
+                }
+              }
+            },
+            "yz8qv8mqz": {
+              "process_id": "divide",
+              "arguments": {
+                "x": {
+                  "from_node": "lp1czbhuh"
+                },
+                "y": 31557600
+              }
+            },
+            "zsdk15d6n": {
+              "process_id": "divide",
+              "arguments": {
+                "x": {
+                  "from_node": "ex0oqkl8c"
+                },
+                "y": 31557600
+              }
+            },
+            "pkigydc74": {
+              "process_id": "multiply",
+              "arguments": {
+                "x": {
+                  "from_node": "yz8qv8mqz"
+                },
+                "y": {
+                  "from_parameter": "data"
+                }
+              }
+            },
+            "rf37as4fr": {
+              "process_id": "multiply",
+              "arguments": {
+                "x": {
+                  "from_node": "zsdk15d6n"
+                },
+                "y": {
+                  "from_parameter": "data"
+                }
+              }
+            },
+            "p0ytgjmry": {
+              "process_id": "cos",
+              "arguments": {
+                "x": {
+                  "from_node": "pkigydc74"
+                }
+              }
+            },
+            "w1ssq20g4": {
+              "process_id": "sin",
+              "arguments": {
+                "x": {
+                  "from_node": "rf37as4fr"
+                }
+              }
+            },
+            "afxu5560f": {
+              "process_id": "multiply",
+              "arguments": {
+                "x": {
+                  "from_node": "rkpyii498"
+                },
+                "y": {
+                  "from_node": "p0ytgjmry"
+                }
+              }
+            },
+            "c6q0i0px2": {
+              "process_id": "multiply",
+              "arguments": {
+                "x": {
+                  "from_node": "xb8ao32v8"
+                },
+                "y": {
+                  "from_node": "w1ssq20g4"
+                }
+              }
+            },
+            "3pels1iol": {
+              "process_id": "add",
+              "arguments": {
+                "x": {
+                  "from_node": "5f8mex5rd"
+                },
+                "y": {
+                  "from_node": "afxu5560f"
+                }
+              }
+            },
+            "h08916b9j": {
+              "process_id": "add",
+              "arguments": {
+                "x": {
+                  "from_node": "3pels1iol"
+                },
+                "y": {
+                  "from_node": "c6q0i0px2"
+                }
+              },
+              "result": true
+            }
+          }
+        },
+        "parameters": {
+          "from_node": "load_result1"
+        },
+        "dimension": "t",
+        "labels": []
+      }
+    },
+    "24": {
+      "process_id": "merge_cubes",
+      "arguments": {
+        "cube2": {
+          "from_node": "32"
+        },
+        "cube1": {
+          "from_node": "22"
+        },
+        "context": "",
+        "overlap_resolver": {
+          "process_graph": {
+            "1": {
+              "result": true,
+              "process_id": "subtract",
+              "arguments": {
+                "x": {
+                  "from_parameter": "x"
+                },
+                "y": {
+                  "from_parameter": "y"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "25": {
+      "process_id": "reduce_dimension",
+      "arguments": {
+        "data": {
+          "from_node": "24"
+        },
+        "context": "",
+        "reducer": {
+          "process_graph": {
+            "6exj30n09": {
+              "process_id": "power",
+              "arguments": {
+                "p": 2,
+                "base": {
+                  "from_node": "l9ixzr102"
+                }
+              }
+            },
+            "8ms9pgwfe": {
+              "process_id": "divide",
+              "arguments": {
+                "x": {
+                  "from_node": "1bs8qwif5"
+                },
+                "y": 3
+              }
+            },
+            "cd3h0ay49": {
+              "process_id": "power",
+              "arguments": {
+                "p": 2,
+                "base": {
+                  "from_node": "ogv5vk81o"
+                }
+              }
+            },
+            "1bs8qwif5": {
+              "process_id": "add",
+              "arguments": {
+                "x": {
+                  "from_node": "lliea3r0g"
+                },
+                "y": {
+                  "from_node": "9096v2aew"
+                }
+              }
+            },
+            "vr5wurhnu": {
+              "process_id": "array_element",
+              "arguments": {
+                "data": {
+                  "from_parameter": "data"
+                },
+                "label": "B04_10m"
+              }
+            },
+            "l79mipa7t": {
+              "process_id": "power",
+              "arguments": {
+                "p": 2,
+                "base": {
+                  "from_node": "kkbc1xrvi"
+                }
+              }
+            },
+            "kkbc1xrvi": {
+              "process_id": "array_element",
+              "arguments": {
+                "data": {
+                  "from_parameter": "data"
+                },
+                "label": "B02_10m"
+              }
+            },
+            "lliea3r0g": {
+              "process_id": "add",
+              "arguments": {
+                "x": {
+                  "from_node": "yhkzc5rje"
+                },
+                "y": {
+                  "from_node": "6exj30n09"
+                }
+              }
+            },
+            "ogv5vk81o": {
+              "process_id": "array_element",
+              "arguments": {
+                "data": {
+                  "from_parameter": "data"
+                },
+                "label": "B08_10m"
+              }
+            },
+            "fjssgcj7a": {
+              "process_id": "add",
+              "arguments": {
+                "x": {
+                  "from_node": "8yjo86mtu"
+                },
+                "y": {
+                  "from_node": "l79mipa7t"
+                }
+              }
+            },
+            "yhkzc5rje": {
+              "process_id": "add",
+              "arguments": {
+                "x": {
+                  "from_node": "fjssgcj7a"
+                },
+                "y": {
+                  "from_node": "cd3h0ay49"
+                }
+              }
+            },
+            "p8ts72skq": {
+              "result": true,
+              "process_id": "power",
+              "arguments": {
+                "p": 0.5,
+                "base": {
+                  "from_node": "8ms9pgwfe"
+                }
+              }
+            },
+            "9096v2aew": {
+              "process_id": "power",
+              "arguments": {
+                "p": 2,
+                "base": {
+                  "from_node": "1sbig4f54"
+                }
+              }
+            },
+            "1sbig4f54": {
+              "process_id": "array_element",
+              "arguments": {
+                "data": {
+                  "from_parameter": "data"
+                },
+                "label": "B8A_20m"
+              }
+            },
+            "l9ixzr102": {
+              "process_id": "array_element",
+              "arguments": {
+                "data": {
+                  "from_parameter": "data"
+                },
+                "label": "B03_10m"
+              }
+            },
+            "8yjo86mtu": {
+              "process_id": "power",
+              "arguments": {
+                "p": 2,
+                "base": {
+                  "from_node": "vr5wurhnu"
+                }
+              }
+            }
+          }
+        },
+        "dimension": "bands"
+      }
+    },
+    "30": {
+      "process_id": "merge_cubes",
+      "arguments": {
+        "cube2": {
+          "from_node": "35"
+        },
+        "cube1": {
+          "from_node": "25"
+        },
+        "context": "",
+        "overlap_resolver": {
+          "process_graph": {
+            "1": {
+              "result": true,
+              "process_id": "gt",
+              "arguments": {
+                "x": {
+                  "from_parameter": "x"
+                },
+                "y": {
+                  "from_parameter": "y"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "32": {
+      "process_id": "mask",
+      "arguments": {
+        "data": {
+          "from_node": "23"
+        },
+        "replacement": 0,
+        "mask": {
+          "from_node": "10"
+        }
+      }
+    },
+    "34": {
+      "process_id": "save_result",
+      "arguments": {
+        "data": {
+          "from_node": "36"
+        },
+        "format": "GTIFF",
+        "options": {}
+      },
+      "result": true
+    },
+    "35": {
+      "process_id": "apply",
+      "arguments": {
+        "process": {
+          "process_graph": {
+            "1": {
+              "result": true,
+              "process_id": "multiply",
+              "arguments": {
+                "x": {
+                  "from_parameter": "x"
+                },
+                "y": 3
+              }
+            }
+          }
+        },
+        "data": {
+          "from_node": "load_result2"
+        },
+        "context": ""
+      }
+    },
+    "36": {
+      "process_id": "reduce_dimension",
+      "arguments": {
+        "data": {
+          "from_node": "30"
+        },
+        "context": "",
+        "reducer": {
+          "process_graph": {
+            "1": {
+              "result": true,
+              "process_id": "max",
+              "arguments": {
+                "data": {
+                  "from_parameter": "data"
+                }
+              }
+            }
+          }
+        },
+        "dimension": "t"
+      }
+    },
+    "load_result1": {
+      "process_id": "load_result",
+      "arguments": {
+        "id": "54dad8f8-9776-4373-8474-e2b940604d44"
+      }
+    },
+    "load_result2": {
+      "process_id": "load_result",
+      "arguments": {
+        "id": "1aed0bd7-a6b8-478b-b13d-fa8634dd3e29"
+      }
+    },
+    "loadcollection1": {
+      "process_id": "load_collection",
+      "arguments": {
+        "temporal_extent": [
+          "2019-04-01T00:00:00Z",
+          "2019-04-30T23:59:00Z"
+        ],
+        "spatial_extent": {
+          "east": 11.535799026489256,
+          "south": 46.29756750209694,
+          "north": 46.394735677983675,
+          "west": 11.3679141998291
+        },
+        "id": "s2cloudless_alps",
+        "bands": [
+          "CLOUD_10m"
+        ],
+        "properties": {}
+      }
+    }
+  },
+  "parameters": []
+}
